@@ -1,14 +1,13 @@
 {
   "installCommand": "npm install && cd ../client && NPM_CONFIG_PRODUCTION=false npm install",
-  "buildCommand": "npm run build --prefix ../client && rm -rf public && cp -r ../client/dist public",
-  "outputDirectory": "public",
+  "buildCommand": "npm run build --prefix ../client",
+  "outputDirectory": "../client/dist",
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/src/index.js" },
-    { "source": "/uploads/(.*)", "destination": "/src/index.js" },
+    { "source": "/uploads/(.*)", "destination": "/api" },
     { "source": "/((?!api/|uploads/).*)", "destination": "/index.html" }
   ],
   "functions": {
-    "src/index.js": {
+    "api/index.js": {
       "maxDuration": 30
     }
   }
