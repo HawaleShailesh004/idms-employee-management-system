@@ -1,0 +1,8 @@
+{
+  "installCommand": "NPM_CONFIG_PRODUCTION=false npm install",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

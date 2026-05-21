@@ -1,11 +1,5 @@
 {
-  "installCommand": "npm install && cd ../client && NPM_CONFIG_PRODUCTION=false npm install",
-  "buildCommand": "npm run build --prefix ../client",
-  "outputDirectory": "../client/dist",
-  "rewrites": [
-    { "source": "/uploads/(.*)", "destination": "/api" },
-    { "source": "/((?!api/|uploads/).*)", "destination": "/index.html" }
-  ],
+  "installCommand": "npm install",
   "functions": {
     "api/index.js": {
       "maxDuration": 30

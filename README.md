@@ -139,11 +139,18 @@ You can log in with **either** email or username.
 - Set `CLIENT_URL` to your deployed frontend origin
 - Store uploads on persistent disk or migrate to cloud storage for production
 
-### Deploy on Vercel (full stack)
+### Deploy on Vercel (two projects)
 
-The repo includes `server/vercel.json` for full-stack deploy. In the Vercel project, set **Root Directory** to `server` (not the repo root).
+Use **two Vercel projects** from the same GitHub repo. Each project only builds its own folder.
 
-**Server environment variables** (Project → Settings → Environment Variables):
+#### 1. Backend (API)
+
+| Setting | Value |
+|---------|--------|
+| Root Directory | `server` |
+| Config | `server/vercel.json` (API only — no client build) |
+
+**Environment variables:**
 
 | Variable | Example |
 |----------|---------|
@@ -151,15 +158,24 @@ The repo includes `server/vercel.json` for full-stack deploy. In the Vercel proj
 | `JWT_SECRET` | Strong secret (32+ chars) |
 | `JWT_EXPIRES_IN` | `24h` |
 | `NODE_ENV` | `production` |
-| `CLIENT_URL` | `https://your-app.vercel.app` |
+| `CLIENT_URL` | Your **frontend** Vercel URL (e.g. `https://idms-client.vercel.app`) |
 
-**Client build variable** (required at build time):
+Health check: `https://your-api.vercel.app/api/health`
+
+#### 2. Frontend (React)
+
+| Setting | Value |
+|---------|--------|
+| Root Directory | `client` |
+| Config | `client/vercel.json` |
+
+**Build environment variable:**
 
 | Variable | Value |
 |----------|--------|
-| `VITE_API_URL` | `https://your-app.vercel.app/api` |
+| `VITE_API_URL` | Your **backend** Vercel URL + `/api` (e.g. `https://idms-api.vercel.app/api`) |
 
-Redeploy after changing env vars. Health check: `GET /api/health`.
+Redeploy both projects after changing env vars. `CLIENT_URL` and `VITE_API_URL` must point at each other’s deployed URLs.
 
 ## License
 
