@@ -51,19 +51,45 @@ app.get('/', healthHandler);
 app.get('/health', healthHandler);
 app.get('/api/health', healthHandler);
 
-app.use('/api/auth', authRoutes);
-app.use('/api/employees', employeeRoutes);
+let dbConnectPromise = null;
+
+const ensureDb = async (_req, _res, next) => {
+  try {
+    if (!dbConnectPromise) {
+      dbConnectPromise = connectDB().catch((err) => {
+        dbConnectPromise = null;
+        throw err;
+      });
+    }
+    await dbConnectPromise;
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
+
+const authMountPaths = ['/api/auth', '/auth'];
+const employeeMountPaths = ['/api/employees', '/employees'];
+
+app.use(authMountPaths, ensureDb, authRoutes);
+app.use(employeeMountPaths, ensureDb, employeeRoutes);
 
 app.use(errorHandler);
 
-const start = async () => {
-  await connectDB();
-  app.listen(env.port, () => {
-    console.log(`Server running on port ${env.port}`);
-  });
-};
+const isVercel = Boolean(process.env.VERCEL);
 
-start().catch((err) => {
-  console.error('Failed to start server:', err);
-  process.exit(1);
-});
+if (!isVercel) {
+  const start = async () => {
+    await connectDB();
+    app.listen(env.port, () => {
+      console.log(`Server running on port ${env.port}`);
+    });
+  };
+
+  start().catch((err) => {
+    console.error('Failed to start server:', err);
+    process.exit(1);
+  });
+}
+
+export default app;

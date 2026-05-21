@@ -137,8 +137,29 @@ You can log in with **either** email or username.
 - Set `NODE_ENV=production`
 - Use HTTPS and set `secure: true` on cookies (configured when `NODE_ENV=production`)
 - Set `CLIENT_URL` to your deployed frontend origin
-- Serve `client` build via Vercel/Netlify and API via Render/Railway
 - Store uploads on persistent disk or migrate to cloud storage for production
+
+### Deploy on Vercel (full stack)
+
+The repo includes `vercel.json` so the React build and Express API deploy together. In the Vercel project, set **Root Directory** to the repository root (not `server/` alone).
+
+**Server environment variables** (Project → Settings → Environment Variables):
+
+| Variable | Example |
+|----------|---------|
+| `MONGODB_URI` | MongoDB Atlas connection string |
+| `JWT_SECRET` | Strong secret (32+ chars) |
+| `JWT_EXPIRES_IN` | `24h` |
+| `NODE_ENV` | `production` |
+| `CLIENT_URL` | `https://your-app.vercel.app` |
+
+**Client build variable** (required at build time):
+
+| Variable | Value |
+|----------|--------|
+| `VITE_API_URL` | `https://your-app.vercel.app/api` |
+
+Redeploy after changing env vars. Health check: `GET /api/health`.
 
 ## License
 
