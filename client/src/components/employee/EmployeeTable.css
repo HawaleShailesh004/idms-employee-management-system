@@ -1,0 +1,93 @@
+.employee-table__wrap {
+  margin: 0 20px;
+  border: 0.5px solid var(--color-border);
+  overflow: visible;
+}
+
+.employee-table__scroll {
+  overflow-x: auto;
+}
+
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.employee-table thead tr {
+  background: var(--color-bg-table-header);
+  height: 31.8px;
+}
+
+.employee-table th {
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 12.7px;
+  font-weight: 500;
+  color: var(--color-primary);
+  border-bottom: 0.5px solid var(--color-border);
+  border-right: 0.5px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.employee-table th:last-child {
+  border-right: none;
+}
+
+.employee-table td {
+  padding: 8px 12px;
+  font-size: 12.7px;
+  color: var(--color-text);
+  border-bottom: 0.5px solid var(--color-border);
+  border-right: 0.5px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.employee-table td:last-child {
+  border-right: none;
+  overflow: visible;
+}
+
+.employee-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.employee-table__photo {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.employee-table__photo img {
+  width: 22px;
+  height: 22px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.employee-table__photo-placeholder {
+  width: 22px;
+  height: 22px;
+}
+
+.employee-table__empty {
+  margin: 40px 20px;
+  min-height: 211px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--color-text);
+  font-size: 11px;
+  border: 0.5px solid var(--color-border);
+  background: #fff;
+}
+
+.employee-table__empty-icon {
+  width: 80px;
+  height: auto;
+  opacity: 0.9;
+}

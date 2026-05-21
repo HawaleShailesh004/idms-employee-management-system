@@ -1,0 +1,65 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s, background 0.2s;
+  padding: 10px 16px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+  width: 100%;
+  min-height: 41px;
+  font-size: 15px;
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+}
+
+.btn--outline {
+  background: #fff;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-text-muted);
+}
+
+.btn--danger {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.btn--save {
+  background: var(--color-primary);
+  color: #fff;
+  min-width: 46px;
+  height: 21px;
+  padding: 2px 12px;
+  font-size: 12.9px;
+}
+
+.btn--create {
+  background: var(--color-primary);
+  color: #fff;
+  min-width: 71px;
+  height: 25px;
+  padding: 4px 10px;
+  font-size: 12.7px;
+  gap: 4px;
+}
