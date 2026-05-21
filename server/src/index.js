@@ -1,6 +1,7 @@
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
+import mongoose from 'mongoose';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { connectDB } from './config/db.js';
@@ -25,9 +26,30 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use('/uploads', express.static(uploadDirPath));
 
-app.get('/api/health', (_req, res) => {
-  res.json({ status: 'success', message: 'API is running' });
-});
+const getHealthPayload = () => {
+  const dbReady = mongoose.connection.readyState;
+  const dbConnected = dbReady === 1;
+  return {
+    status: dbConnected ? 'ok' : 'degraded',
+    service: 'idms-employee-api',
+    message: dbConnected ? 'API is running' : 'API is running; database not connected',
+    database: {
+      connected: dbConnected,
+      state: ['disconnected', 'connected', 'connecting', 'disconnecting'][dbReady] ?? 'unknown',
+    },
+    uptimeSeconds: Math.floor(process.uptime()),
+    timestamp: new Date().toISOString(),
+  };
+};
+
+const healthHandler = (_req, res) => {
+  const payload = getHealthPayload();
+  res.status(payload.database.connected ? 200 : 503).json(payload);
+};
+
+app.get('/', healthHandler);
+app.get('/health', healthHandler);
+app.get('/api/health', healthHandler);
 
 app.use('/api/auth', authRoutes);
 app.use('/api/employees', employeeRoutes);
