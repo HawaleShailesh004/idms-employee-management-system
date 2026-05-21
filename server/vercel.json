@@ -1,5 +1,5 @@
 {
-  "installCommand": "npm install && npm install --prefix ../client",
+  "installCommand": "npm install && cd ../client && NPM_CONFIG_PRODUCTION=false npm install",
   "buildCommand": "npm run build --prefix ../client && rm -rf public && cp -r ../client/dist public",
   "outputDirectory": "public",
   "rewrites": [
