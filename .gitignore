@@ -10,3 +10,5 @@ server/uploads/*
 *.log
 assets/*
 static/
+Inter-VariableFont_opsz,wght.ttf
+Inter-Italic-VariableFont_opsz,wght.ttf
