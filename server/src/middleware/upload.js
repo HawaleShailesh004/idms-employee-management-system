@@ -2,12 +2,22 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import os from 'os';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const uploadDir = path.join(__dirname, '../../uploads');
 
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
+// Vercel's filesystem is read-only except /tmp
+const isVercel = Boolean(process.env.VERCEL);
+const uploadDir = isVercel
+  ? path.join(os.tmpdir(), 'idms-uploads')
+  : path.join(__dirname, '../../uploads');
+
+try {
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+  }
+} catch (err) {
+  console.warn(`Could not create upload dir at ${uploadDir}:`, err.message);
 }
 
 const storage = multer.diskStorage({
