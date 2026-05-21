@@ -158,7 +158,7 @@ Use **two Vercel projects** from the same GitHub repo. Each project only builds 
 | `JWT_SECRET` | Strong secret (32+ chars) |
 | `JWT_EXPIRES_IN` | `24h` |
 | `NODE_ENV` | `production` |
-| `CLIENT_URL` | Your **frontend** Vercel URL (e.g. `https://idms-client.vercel.app`) |
+| `CLIENT_URL` | Exact **frontend** origin, no trailing slash (e.g. `https://idms-ems-frontend.vercel.app`) — **not** the API URL |
 
 Health check: `https://your-api.vercel.app/api/health`
 
