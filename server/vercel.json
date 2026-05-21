@@ -1,11 +1,16 @@
 {
   "installCommand": "npm install",
-  "rewrites": [
-    { "source": "/uploads/(.*)", "destination": "/api/uploads/$1" }
-  ],
   "functions": {
-    "api/**/*.js": {
-      "maxDuration": 30
+    "api/[[...path]].js": {
+      "maxDuration": 30,
+      "memory": 512
     }
-  }
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api/[[...path]]",
+      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"]
+    }
+  ]
 }
