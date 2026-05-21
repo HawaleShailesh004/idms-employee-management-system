@@ -141,7 +141,7 @@ You can log in with **either** email or username.
 
 ### Deploy on Vercel (full stack)
 
-The repo includes `vercel.json` so the React build and Express API deploy together. In the Vercel project, set **Root Directory** to the repository root (not `server/` alone).
+The repo includes `server/vercel.json` for full-stack deploy. In the Vercel project, set **Root Directory** to `server` (not the repo root).
 
 **Server environment variables** (Project → Settings → Environment Variables):
 
